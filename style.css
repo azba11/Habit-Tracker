@@ -89,3 +89,32 @@ h1 {
   font-size: 16px;
   margin-top: 40px;
 }
+
+/* Week navigation */
+#week-nav {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+#week-nav button {
+  padding: 8px 16px;
+  background-color: #4a90e2;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+#week-nav button:hover {
+  background-color: #357abd;
+}
+
+#week-label {
+  font-size: 16px;
+  font-weight: bold;
+  min-width: 200px;
+  text-align: center;
+}

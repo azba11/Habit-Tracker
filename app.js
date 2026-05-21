@@ -53,3 +53,10 @@ addBtn.addEventListener('click', function() {
     trackerSection.appendChild(habitRow);
     });
 }
+// function to delete habits
+function deleteHabit(id) {
+  habits = habits.filter(function(habit) {
+    return habit.id !== id;
+  });
+  renderHabits();
+}
