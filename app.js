@@ -33,14 +33,98 @@ addBtn.addEventListener('click', function() {
 //  function to show habits in screen 
  function renderHabits() {
     trackerSection.innerHTML = '';
+     updateWeekLabel();
 
     if (habits.length === 0) {
-        trackerSection.innerHTML = '<p id="empty-msg"> No habit - add habits </p>'
+        trackerSection.innerHTML = '<p id="empty-msg"> No habit yet - add one above </p>'
         return;
     }
 
-    // row for each habit 
-    habits.forEach(function(habit) {
+    // Table banao
+  let table = document.createElement('table');
+  table.id = 'habit-table';
+
+  // Header row banao — din ke naam
+  let headerRow = document.createElement('tr');
+  let weekDates = getWeekDates(currentWeekOffset);
+
+  // Pehla header khali hoga — habits ke naam ke liye
+  headerRow.innerHTML = '<th>Habit</th>';
+
+  // 7 din add karo header mein
+  weekDates.forEach(function(date) {
+    let th = document.createElement('th');
+    th.textContent = formatDay(date);
+
+    // Aaj ka column highlight karo
+    if (isToday(date)) {
+      th.className = 'today-col';
+    }
+    headerRow.appendChild(th);
+  });
+
+   // Streak header
+  headerRow.innerHTML += '<th>Streak</th><th>Actions</th>';
+  table.appendChild(headerRow);
+
+  // Har habit ki row banao
+  habits.forEach(function(habit) {
+    let row = document.createElement('tr');
+
+    // Habit  name
+    let nameCell = document.createElement('td');
+    nameCell.textContent = habit.name;
+    nameCell.className = 'habit-name-cell';
+    row.appendChild(nameCell);
+
+    // checkboxes for 7 days
+    weekDates.forEach(function(date) {
+      let td = document.createElement('td');
+      if (isToday(date)) {
+        td.className = 'today-col';
+      }
+
+      let checkbox = document.createElement('input');
+      checkbox.type = 'checkbox';
+
+      // Date check boxes — eg "2024-5-21"
+      let dateKey = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+
+      // if tick then show checked
+      if (habit.checks && habit.checks[dateKey]) {
+        checkbox.checked = true;
+      }
+
+      // save Checkbox on tick 
+      checkbox.addEventListener('change', function() {
+        if (!habit.checks) habit.checks = {};
+        habit.checks[dateKey] = checkbox.checked;
+        updateStreak(habit);
+        renderHabits();
+      });
+
+      td.appendChild(checkbox);
+      row.appendChild(td);
+    });
+
+    // Streak cell
+    let streakCell = document.createElement('td');
+    streakCell.textContent = ' ' + (habit.streak || 0);
+    streakCell.className = 'streak-cell';
+    row.appendChild(streakCell);
+
+    // Delete button
+    let actionCell = document.createElement('td');
+    actionCell.innerHTML = `<button class="delete-btn" onclick="deleteHabit(${habit.id})">Delete</button>`;
+    row.appendChild(actionCell);
+
+    table.appendChild(row);
+  });
+
+  trackerSection.appendChild(table);
+}
+    /* row for each habit 
+   // habits.forEach(function(habit) {
 
         let habitRow = document.createElement('div');
         habitRow.className = 'habit-row';
@@ -51,8 +135,8 @@ addBtn.addEventListener('click', function() {
     `;
 
     trackerSection.appendChild(habitRow);
-    });
-}
+    });*/
+
 // function to delete habits
 function deleteHabit(id) {
   habits = habits.filter(function(habit) {
@@ -133,4 +217,26 @@ function updateWeekLabel() {
   }
 
   document.getElementById('week-label').textContent = label;
+}
+
+
+// streak function 
+function updateStreak(habit) {
+  let streak = 0;
+  let today = new Date();
+
+  // 
+  for (let i = 0; i < 365; i++) {
+    let date = new Date(today);
+    date.setDate(today.getDate() - i);
+    let dateKey = date.getFullYear() + '-' + date.getMonth() + '-' + date.getDate();
+
+    if (habit.checks && habit.checks[dateKey]) {
+      streak++;
+    } else {
+      break; 
+    }
+  }
+
+  habit.streak = streak;
 }
