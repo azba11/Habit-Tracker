@@ -60,3 +60,77 @@ function deleteHabit(id) {
   });
   renderHabits();
 }
+
+// to track week
+let currentWeekOffset = 0;
+
+function getWeekDates(offset) {
+    let today = new Date();
+    let dayOfWeek = today.getDay();
+
+    let monday = new Date(today);
+    monday.setDate(today.getDate() - dayOfWeek +1 + (offset * 7));
+
+    let weekDates = [];
+    for (let i = 0; i<7; i++) {
+        let day = new Date(monday);
+        day.setDate(monday.getDate() + i);
+        weekDates.push(day);
+    }
+    return weekDates;
+}
+
+function formatDay(date) {
+    let days = ['Sun' , 'Mon' , 'Tue' , 'Wed' , 'Thu' , 'Fri' , 'Sat'];
+    let dayName = days[date.getDay()];
+   let dateNum = date.getDate();
+  return dayName + ' ' + dateNum;
+}
+ // fun to check today date 
+function isToday(date) {
+  let today = new Date();
+  return date.getDate() === today.getDate() &&
+    date.getMonth() === today.getMonth() &&
+    date.getFullYear() === today.getFullYear();
+}
+
+// Prev button
+document.getElementById('prev-btn').addEventListener('click', function() {
+  currentWeekOffset--;
+  renderHabits();
+});
+
+// Next button
+document.getElementById('next-btn').addEventListener('click', function() {
+  currentWeekOffset++;
+  renderHabits();
+});
+
+// Today button
+document.getElementById('today-btn').addEventListener('click', function() {
+  currentWeekOffset = 0;
+  renderHabits();
+});
+
+// Week label update 
+function updateWeekLabel() {
+  let dates = getWeekDates(currentWeekOffset);
+  let firstDay = dates[0];
+  let lastDay = dates[6];
+  
+  let months = ['Jan','Feb','Mar','Apr','May','Jun',
+                 'Jul','Aug','Sep','Oct','Nov','Dec'];
+
+  let label = firstDay.getDate() + ' ' + months[firstDay.getMonth()] 
+            + ' - ' + lastDay.getDate() + ' ' + months[lastDay.getMonth()];
+
+  if (currentWeekOffset === 0) {
+    label = 'This Week: ' + label;
+  } else if (currentWeekOffset === -1) {
+    label = 'Last Week: ' + label;
+  } else {
+    label = label;
+  }
+
+  document.getElementById('week-label').textContent = label;
+}
