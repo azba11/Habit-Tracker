@@ -2,6 +2,20 @@ const habitInput = document.getElementById('habit-input');
 const addBtn = document.getElementById('add-btn');
 const trackerSection = document.getElementById('tracker-section');
 
+
+// load habits fromLocalStorage 
+function loadHabits() {
+  let saved = localStorage.getItem('habits');
+  if (saved) {
+    habits = JSON.parse(saved);
+  }
+}
+
+// save in LocalStorage 
+function saveHabits() {
+  localStorage.setItem('habits', JSON.stringify(habits));
+}
+
 // to store habits 
 let habits = [];
 
@@ -27,6 +41,7 @@ addBtn.addEventListener('click', function() {
 
 
 // to show habits in screen or updated screen
+    saveHabits();
     renderHabits();
 });
 
@@ -100,6 +115,7 @@ addBtn.addEventListener('click', function() {
         if (!habit.checks) habit.checks = {};
         habit.checks[dateKey] = checkbox.checked;
         updateStreak(habit);
+         saveHabits();
         renderHabits();
       });
 
@@ -142,6 +158,7 @@ function deleteHabit(id) {
   habits = habits.filter(function(habit) {
     return habit.id !== id;
   });
+   saveHabits();
   renderHabits();
 }
 
@@ -240,3 +257,7 @@ function updateStreak(habit) {
 
   habit.streak = streak;
 }
+
+
+loadHabits();
+renderHabits();
