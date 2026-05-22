@@ -14,14 +14,17 @@ body {
 header {
   text-align: center;
   margin-bottom: 30px;
+  padding: 20px 0;
+  border-bottom: 2px solid #4a90e2;
 }
 
 h1 {
-  font-size: 28px;
+  font-size: 42px;
   color: #4a90e2;
+  letter-spacing: 1px;
 }
 
-/* Habit add karne wala section */
+/* Habit add  section */
 #add-habit {
   display: flex;
   gap: 10px;
@@ -116,5 +119,74 @@ h1 {
   font-size: 16px;
   font-weight: bold;
   min-width: 200px;
+  color: #4a90e2;
   text-align: center;
+}
+
+/* Table */
+#habit-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: white;
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+#habit-table th {
+  background-color: #4a90e2;
+  color: white;
+  padding: 12px 8px;
+  text-align: center;
+  font-size: 14px;
+}
+
+#habit-table td {
+  padding: 10px 8px;
+  text-align: center;
+  border-bottom: 1px solid #f0f0f0;
+}
+
+#habit-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+/* today column */
+.today-col {
+  background-color: #cce5ff !important;
+  font-weight: bold;
+}
+
+/* Habit naam */
+.habit-name-cell {
+  text-align: left !important;
+  font-weight: 500;
+  padding-left: 16px !important;
+}
+
+/* Streak */
+.streak-cell {
+  font-weight: bold;
+  color: #e67e22;
+}
+
+/* Checkbox size */
+#habit-table input[type="checkbox"] {
+  width: 18px;
+  height: 18px;
+  cursor: pointer;
+}
+
+/* Responsive — mobile  scroll */
+#tracker-section {
+  overflow-x: auto;
+}
+
+/* Empty state */
+#empty-msg {
+  text-align: center;
+  color: #999;
+  font-size: 16px;
+  margin-top: 60px;
+  padding: 40px;
 }
