@@ -55,23 +55,23 @@ addBtn.addEventListener('click', function() {
         return;
     }
 
-    // Table banao
+    // Table 
   let table = document.createElement('table');
   table.id = 'habit-table';
 
-  // Header row banao — din ke naam
+  // Header row  — name of days
   let headerRow = document.createElement('tr');
   let weekDates = getWeekDates(currentWeekOffset);
 
-  // Pehla header khali hoga — habits ke naam ke liye
+  
   headerRow.innerHTML = '<th>Habit</th>';
 
-  // 7 din add karo header mein
+  // add 7 days in header
   weekDates.forEach(function(date) {
     let th = document.createElement('th');
     th.textContent = formatDay(date);
 
-    // Aaj ka column highlight karo
+    //  highlight today column 
     if (isToday(date)) {
       th.className = 'today-col';
     }
@@ -82,7 +82,7 @@ addBtn.addEventListener('click', function() {
   headerRow.innerHTML += '<th>Streak</th><th>Actions</th>';
   table.appendChild(headerRow);
 
-  // Har habit ki row banao
+  
   habits.forEach(function(habit) {
     let row = document.createElement('tr');
 
@@ -139,19 +139,7 @@ addBtn.addEventListener('click', function() {
 
   trackerSection.appendChild(table);
 }
-    /* row for each habit 
-   // habits.forEach(function(habit) {
-
-        let habitRow = document.createElement('div');
-        habitRow.className = 'habit-row';
-
-         habitRow.innerHTML = `
-      <span class="habit-name">${habit.name}</span>
-      <button class="delete-btn" onclick="deleteHabit(${habit.id})">Delete</button>
-    `;
-
-    trackerSection.appendChild(habitRow);
-    });*/
+    
 
 // function to delete habits
 function deleteHabit(id) {

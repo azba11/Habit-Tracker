@@ -6,12 +6,12 @@ No installation or build step needed — this is plain HTML/CSS/JS.
 
 **To run locally:**
 1. Clone the repo:
-   git clone https://github.com/tumhara-username/habit-tracker
+   git clone https://github.com/azba11/Habit-Tracker
 2. Open the project folder
 3. Open `index.html` in any browser (Chrome, Firefox, Edge)
 
 **Deployed URL:**
-https://tumhara-link-yahan-aayega.vercel.app
+ https://habit-tracker-khaki-ten-87.vercel.app/
 
 ## 2. Stack & Design Choices
 
